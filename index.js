@@ -67,7 +67,7 @@ const PdfToImages = async (inputFileName,outputDir,timestamp=new Date().getTime(
         fs.mkdirSync(outputDir);
       }
       let outputImageFile =  outputDir+timestamp+ '.png';
-      let pdfConversionCommand = 'convert -resize 1200 -density 200 ' + inputFileName + ' ' + outputImageFile;
+      let pdfConversionCommand = 'convert ' + inputFileName + ' ' + outputImageFile;
       exec(pdfConversionCommand, (error, stdout, stderr) => {
         if (error) {
          console.error(error);
