@@ -73,16 +73,24 @@ const PdfToImages = async (inputFileName,outputDir,timestamp=new Date().getTime(
          console.error(error);
          reject(error);
         }
+          let listfileCommand =  'ls -rt '+outputDir+timestamp+ '*.png'
+        /*
         let listfileCommand =  'ls -rt '+outputDir+timestamp+ '*.png'
+        console.log(listfileCommand)
         exec(listfileCommand, (error, stdout, stderr) => {
           if (error) {
            console.error(error);
            reject(error);
           }
           stdout = stdout.replace(/\n$/, '');
-          const filesNames = stdout.split('\n');        
+          const filesNames = stdout.split('\n');  
+          console.log(filesNames)      
           resolve(filesNames);
         });
+        */
+       const files = fs.readdirSync( `${outputDir}`)
+      const fileNames = files.filter(file => file.startsWith(`${timestamp}`) && file.endsWith('.png'))
+      resolve(fileNames)
       });
     } catch (error) {
       console.error('Exception encountered while Converting PDF to Image', error);
